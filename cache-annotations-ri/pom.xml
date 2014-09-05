@@ -5,7 +5,8 @@
     <parent>
         <groupId>org.jsr107.ri</groupId>
         <artifactId>cache-ri</artifactId>
-        <version>1.0.1-SNAPSHOT</version>
+        <version>1.0.1-CDIWL</version>
+        <relativePath>..</relativePath>
     </parent>
     <artifactId>cache-annotations-ri</artifactId>
     <packaging>pom</packaging>
@@ -15,8 +16,8 @@
     <modules>
         <module>cache-annotations-ri-cdi</module>
         <module>cache-annotations-ri-common</module>
-        <module>cache-annotations-ri-spring</module>
-        <module>cache-annotations-ri-guice</module>
+        <!--<module>cache-annotations-ri-spring</module>-->
+        <!--<module>cache-annotations-ri-guice</module>-->
     </modules>
 
     <build>

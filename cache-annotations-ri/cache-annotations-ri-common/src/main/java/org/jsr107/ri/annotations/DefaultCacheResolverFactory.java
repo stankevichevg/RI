@@ -56,6 +56,7 @@ public class DefaultCacheResolverFactory implements CacheResolverFactory {
    * Constructs the resolver
    */
   public DefaultCacheResolverFactory() {
+    Caching.setDefaultClassLoader(Caching.class.getClassLoader());
     CachingProvider provider = Caching.getCachingProvider();
     this.cacheManager = provider.getCacheManager(provider.getDefaultURI(), provider.getDefaultClassLoader());
   }

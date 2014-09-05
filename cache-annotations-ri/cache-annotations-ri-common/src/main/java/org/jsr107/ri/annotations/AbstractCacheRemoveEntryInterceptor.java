@@ -41,9 +41,9 @@ public abstract class AbstractCacheRemoveEntryInterceptor<I> extends AbstractKey
    * @param cacheContextSource The intercepted invocation
    * @param invocation         The intercepted invocation
    * @return The result from {@link #proceed(Object)}
-   * @throws Throwable if {@link #proceed(Object)} threw
+   * @throws Exception if {@link #proceed(Object)} threw
    */
-  public final Object cacheRemoveEntry(CacheContextSource<I> cacheContextSource, I invocation) throws Throwable {
+  public final Object cacheRemoveEntry(CacheContextSource<I> cacheContextSource, I invocation) throws Exception {
     final InternalCacheKeyInvocationContext<? extends Annotation> cacheKeyInvocationContext =
         cacheContextSource.getCacheKeyInvocationContext(invocation);
     final CacheRemoveEntryMethodDetails methodDetails =

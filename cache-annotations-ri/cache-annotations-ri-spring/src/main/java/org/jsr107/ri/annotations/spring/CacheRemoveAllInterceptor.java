@@ -57,7 +57,7 @@ public class CacheRemoveAllInterceptor extends AbstractCacheRemoveAllInterceptor
    * @see org.jsr107.ri.annotations.AbstractCacheInterceptor#proceed(java.lang.Object)
    */
   @Override
-  protected Object proceed(MethodInvocation invocation) throws Throwable {
+  protected Object proceed(MethodInvocation invocation) throws Exception {
     return invocation.proceed();
   }
 }

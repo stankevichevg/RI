@@ -30,8 +30,8 @@ public abstract class AbstractCacheInterceptor<I> {
    *
    * @param invocation The intercepted invocation
    * @return The value returned by the invocation
-   * @throws Throwable The exception thrown by the invocation, if any
+   * @throws Exception The exception thrown by the invocation, if any
    */
-  protected abstract Object proceed(I invocation) throws Throwable;
+  protected abstract Object proceed(I invocation) throws Exception;
 
 }

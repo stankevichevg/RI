@@ -42,9 +42,9 @@ public abstract class AbstractCachePutInterceptor<I> extends AbstractKeyedCacheI
    * @param cacheContextSource The intercepted invocation
    * @param invocation         The intercepted invocation
    * @return The result from {@link #proceed(Object)}
-   * @throws Throwable if {@link #proceed(Object)} threw
+   * @throws Exception if {@link #proceed(Object)} threw
    */
-  public Object cachePut(CacheContextSource<I> cacheContextSource, I invocation) throws Throwable {
+  public Object cachePut(CacheContextSource<I> cacheContextSource, I invocation) throws Exception {
     final InternalCacheKeyInvocationContext<? extends Annotation> cacheKeyInvocationContext =
         cacheContextSource.getCacheKeyInvocationContext(invocation);
     final CachePutMethodDetails methodDetails = this.getStaticCacheKeyInvocationContext(cacheKeyInvocationContext, InterceptorType.CACHE_PUT);
@@ -63,7 +63,7 @@ public abstract class AbstractCachePutInterceptor<I> extends AbstractKeyedCacheI
     try {
       //Call the annotated method
       result = this.proceed(invocation);
-    } catch (Throwable t) {
+    } catch (Exception t) {
       if (afterInvocation) {
         //If after invocation is true and if the throwable passes the include/exclude filters and then call put
         final Class<? extends Throwable>[] cacheFor = cachePutAnnotation.cacheFor();

@@ -42,9 +42,9 @@ public abstract class AbstractCacheResultInterceptor<I> extends AbstractKeyedCac
    * @param cacheContextSource The intercepted invocation
    * @param invocation         The intercepted invocation
    * @return The result from {@link #proceed(Object)}
-   * @throws Throwable if {@link #proceed(Object)} threw
+   * @throws Exception if {@link #proceed(Object)} threw
    */
-  public final Object cacheResult(CacheContextSource<I> cacheContextSource, I invocation) throws Throwable {
+  public final Object cacheResult(CacheContextSource<I> cacheContextSource, I invocation) throws Exception {
     //Load details about the annotated method
     final InternalCacheKeyInvocationContext<? extends Annotation> cacheKeyInvocationContext =
         cacheContextSource.getCacheKeyInvocationContext(invocation);
@@ -56,7 +56,7 @@ public abstract class AbstractCacheResultInterceptor<I> extends AbstractKeyedCac
     final Cache<Object, Object> cache = cacheResolver.resolveCache(cacheKeyInvocationContext);
 
     //Resolve exception cache
-    final Cache<Object, Throwable> exceptionCache = getExceptionCache(cacheKeyInvocationContext, methodDetails);
+    final Cache<Object, Exception> exceptionCache = getExceptionCache(cacheKeyInvocationContext, methodDetails);
 
     //Generate the cache key
     final CacheKeyGenerator cacheKeyGenerator = methodDetails.getCacheKeyGenerator();
@@ -88,7 +88,7 @@ public abstract class AbstractCacheResultInterceptor<I> extends AbstractKeyedCac
       }
 
       return result;
-    } catch (Throwable t) {
+    } catch (Exception t) {
       //If exception caching is enabled check if the throwable passes the include/exclude filters and then cache it
       cacheException(exceptionCache, cacheKey, cacheResultAnnotation, t);
 
@@ -101,15 +101,15 @@ public abstract class AbstractCacheResultInterceptor<I> extends AbstractKeyedCac
    *
    * @param exceptionCache The exception cache, may be null if no exception caching is being done
    * @param cacheKey       The cache key
-   * @throws Throwable The cached exception
+   * @throws Exception The cached exception
    */
-  protected void checkForCachedException(final Cache<Object, Throwable> exceptionCache, final GeneratedCacheKey cacheKey)
-      throws Throwable {
+  protected void checkForCachedException(final Cache<Object, Exception> exceptionCache, final GeneratedCacheKey cacheKey)
+      throws Exception {
     if (exceptionCache == null) {
       return;
     }
 
-    final Throwable throwable = exceptionCache.get(cacheKey);
+    final Exception throwable = exceptionCache.get(cacheKey);
     if (throwable != null) {
       //Found exception, re-throw
       throw throwable;
@@ -124,8 +124,8 @@ public abstract class AbstractCacheResultInterceptor<I> extends AbstractKeyedCac
    * @param cacheResultAnnotation The cache result annotation
    * @param t                     The exception to cache
    */
-  protected void cacheException(final Cache<Object, Throwable> exceptionCache, final GeneratedCacheKey cacheKey,
-                                final CacheResult cacheResultAnnotation, Throwable t) {
+  protected void cacheException(final Cache<Object, Exception> exceptionCache, final GeneratedCacheKey cacheKey,
+                                final CacheResult cacheResultAnnotation, Exception t) {
     if (exceptionCache == null) {
       return;
     }
@@ -146,7 +146,7 @@ public abstract class AbstractCacheResultInterceptor<I> extends AbstractKeyedCac
    * @param methodDetails             The method details
    * @return The exception cache, null if exception caching is disabled.
    */
-  protected Cache<Object, Throwable> getExceptionCache(
+  protected Cache<Object, Exception> getExceptionCache(
       final InternalCacheKeyInvocationContext<? extends Annotation> cacheKeyInvocationContext,
       final CacheResultMethodDetails methodDetails) {
 
